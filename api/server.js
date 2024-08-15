@@ -6,18 +6,24 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const users = [
+    { email: 'user@teste.com', password: '123456789', isUser: true },
+    { email: 'store@teste.com', password: '123456789', isUser: false },
+];
+
 app.post('/login', async (req, res)=>{
     const { email, password } = req.body;
 
-    if(email === 'user@teste.com' || email === 'store@teste.com'){
-        const isUser = (email === 'user@teste.com');
-        if(password == '123456789'){
-            res.status(201).json({message: 'successfully', isUser: isUser});
-        }else{
-            res.status(400).json({message: 'passwordError', isUser: null});
+    const user = users.find(u => u.email === email);
+
+    if (user) {
+        if (user.password === password) {
+            res.status(201).json({ message: 'successfully', isUser: user.isUser });
+        } else {
+            res.status(400).json({ message: 'passwordError', isUser: null });
         }
-    }else{
-        res.status(400).json({message: 'emailError', isUser: null});
+    } else {
+        res.status(400).json({ message: 'emailError', isUser: null });
     }
 });
 
