@@ -39,6 +39,8 @@ app.post('/address', async (req, res) => {
 app.post('/store', async (req, res) => {
     const { email, password } = req.body;
 
+    console.log(req.body);
+
     users.push({email: email, password: password, isUser: false});
 
     res.status(201).json({message: 'successfully'});
@@ -46,6 +48,8 @@ app.post('/store', async (req, res) => {
 
 app.post('/user', async (req, res) => {
     const { email, password } = req.body;
+
+    console.log(req.body);
 
     users.push({email: email, password: password, isUser: true});
 
