@@ -424,9 +424,9 @@ app.get('/teste', async (req, res) => {
 });
 
 app.get('/search_product', async (req, res) => {
-    const { query, totalPage } = req.body;
+    const { query, totalPage } = req.query;
 
-    console.log(req.body);
+    console.log(req.query);
 
     res.status(200).json({ products: products, totalPage: 13, });
 });
