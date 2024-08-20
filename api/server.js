@@ -340,9 +340,9 @@ app.post('/address', async (req, res) => {
 
     res.status(201).json({ message: 'successfully', id: id });
 });
-app.put('/address', async (req,res) => {
+app.put('/address', async (req, res) => {
     console.log(req.body);
-    res.status(201).json({message: 'successfully'});
+    res.status(201).json({ message: 'successfully' });
 });
 app.get('/address', async (req, res) => {
     const { email, password } = req.body;
@@ -368,9 +368,9 @@ app.post('/store', async (req, res) => {
 
     res.status(201).json({ message: 'successfully' });
 });
-app.put('/store', async (req,res) => {
+app.put('/store', async (req, res) => {
     console.log(req.body);
-    res.status(201).json({message: 'successfully'});
+    res.status(201).json({ message: 'successfully' });
 });
 app.get('/store', async (req, res) => {
     const { email, password } = req.body;
@@ -398,9 +398,9 @@ app.post('/user', async (req, res) => {
 
     res.status(201).json({ message: 'successfully' });
 });
-app.put('/user', async (req,res) => {
+app.put('/user', async (req, res) => {
     console.log(req.body);
-    res.status(201).json({message: 'successfully'});
+    res.status(201).json({ message: 'successfully' });
 });
 app.get('/user', async (req, res) => {
     const { email, password } = req.body;
@@ -421,27 +421,12 @@ app.get('/teste', async (req, res) => {
     res.status(200).json({ message: 'deu boa' });
 });
 
-app.get('/search_product', async (req,res) =>{
-    const query = req.body.query;
-    const actualPage = parseInt(req.body.actualPage) || 1;
-    const itemsPerPage = 10;
+app.get('/search_product', async (req, res) => {
+    const { query, totalPage } = req.body;
 
-    // Filtrando os produtos com base na query de pesquisa
-    const filteredProducts = products.filter(product =>
-        product.productName.toLowerCase().includes(query.toLowerCase())
-    );
+    console.log(req.body);
 
-    // Paginação
-    const totalPage = Math.ceil(filteredProducts.length / itemsPerPage);
-    const paginatedProducts = filteredProducts.slice(
-        (actualPage - 1) * itemsPerPage,
-        actualPage * itemsPerPage
-    );
-
-    res.status(200).json({
-        products: paginatedProducts,
-        totalPage: totalPage,
-    });
+    res.status(200).json({ products: products, totalPage: 13, });
 });
 
 module.exports = app;
