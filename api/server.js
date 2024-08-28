@@ -345,8 +345,8 @@ app.get('/contacts', (req, res) => {
     console.log(`ID do Produto: ${productId}`);
 
     const response = {
-        location: 'Rua Gramado, 541 - Francisco Beltrão, Paraná, Brasil',
-        phone: '46984004056',
+        location: 'Rua São Paulo, 150 Guanabara - Francisco Beltrão, Paraná, Brasil',
+        phone: '46999410401',
         mail: 'nome@example.com',
     };
 
