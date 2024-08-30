@@ -361,4 +361,37 @@ app.get('/store_list', async (req, res) => {
     res.status(200).json({ products: products, totalPage: 13, });
 });
 
+app.post('/products', (req, res) => {
+    const product = req.body;
+    product.id = products.length + 1; 
+    console.log(product); 
+    res.status(201).send('Produto cadastrado com sucesso');
+});
+
+app.put('/products', (req, res) => {
+    const updatedProduct = req.body;
+    const index = products.findIndex(product => product.id === updatedProduct.id);
+
+    if (index !== -1) {
+        console.log(updatedProduct.id);
+        res.status(200).send('Produto atualizado com sucesso');
+    } else {
+        res.status(404).send('Produto não encontrado');
+    }
+});
+
+
+app.delete('/products', (req, res) => {
+    const { id, store, password } = req.query;
+
+    const index = products.findIndex(product => product.id == id);
+
+    if (index !== -1) {
+        console.log(id);
+        res.status(200).send('Produto deletado com sucesso');
+    } else {
+        res.status(404).send('Produto não encontrado');
+    }
+});
+
 module.exports = app;
