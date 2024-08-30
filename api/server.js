@@ -353,4 +353,12 @@ app.get('/contacts', (req, res) => {
     res.status(200).json(response);
 });
 
+app.get('/store_list', async (req, res) => {
+    const { query, totalPage } = req.query;
+
+    console.log(req.query);
+
+    res.status(200).json({ products: products, totalPage: 13, });
+});
+
 module.exports = app;
