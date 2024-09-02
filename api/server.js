@@ -365,8 +365,8 @@ app.get('/store_list', async (req, res) => {
 
 app.post('/products', (req, res) => {
     const product = req.body;
-    product.id = products.length + 1; 
-    console.log(product); 
+    product.id = products.length + 1;
+    console.log(product);
     res.status(201).send('Produto cadastrado com sucesso');
 });
 
@@ -395,5 +395,73 @@ app.delete('/products', (req, res) => {
         res.status(404).send('Produto não encontrado');
     }
 });
+
+app.get('/cart', (req, res) => {
+    // Objeto para armazenar as lojas e seus produtos
+    const storeMap = {};
+
+    // Passa por todos os produtos no vetor
+    products.forEach(product => {
+        const storeName = product.storeName;
+
+        // Se a loja ainda não foi adicionada ao mapa, cria uma nova entrada
+        if (!storeMap[storeName]) {
+            storeMap[storeName] = {
+                storeName: storeName,
+                email: product.haveEmail ? product.email : '',
+                phone: product.havePhone ? product.phoneNumber : '',
+                whats: product.haveWhats ? product.phoneNumber : '',
+                haveDelivery: product.haveDelivery,
+                products: [],
+            };
+        }
+
+        // Adiciona o produto ao vetor de produtos da loja correspondente
+        storeMap[storeName].products.push({
+            productName: product.productName,
+            productValue: product.productValue,
+            description: product.description,
+            img: product.img,
+            un: product.un,
+            id: product.id,
+            qnt: product.qnt,
+        });
+    });
+
+    // Transforma o mapa em um array para ser retornado como JSON
+    const storesArray = Object.values(storeMap);
+
+    if (storesArray.length > 0) {
+        res.status(200).json(storesArray);
+    } else {
+        res.status(404).json({ message: 'No stores found' });
+    }
+});
+
+app.put('/cart', (req, res) => {
+    const { name, idProduct } = req.body;
+
+    console.log(name, idProduct);
+
+    res.status(200).json({ message: 'Atualização bem sucedida' });
+
+});
+
+app.delete('/cart', (req, res) => {
+    const { id, name } = req.query;
+
+    console.log(id, name);
+
+    res.status(200).json({ message: 'Produto deletado comn sucesso' });
+
+});
+
+app.post('/cart', (req, res) => {
+    const newProduct = req.body;
+    console.log(newProduct);
+
+    res.status(201).json({ message: 'Product added successfully' });
+});
+
 
 module.exports = app;
