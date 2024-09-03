@@ -408,9 +408,9 @@ app.get('/cart', (req, res) => {
         if (!storeMap[storeName]) {
             storeMap[storeName] = {
                 storeName: storeName,
-                email: product.haveEmail ? 'default_email@example.com' : '',
-                phone: product.havePhone ? product.phoneNumber : '',
-                whats: product.haveWhats ? product.phoneNumber : '',
+                email: 'default_email@example.com',
+                phone: product.phoneNumber,
+                whats: product.phoneNumber,
                 haveDelivery: product.haveDelivery,
                 products: [],
             };
@@ -418,18 +418,20 @@ app.get('/cart', (req, res) => {
 
         // Adiciona o produto ao vetor de produtos da loja correspondente
         storeMap[storeName].products.push({
-            productName: product.productName || '',
-            productValue: product.productValue || '',
-            description: product.description || '',
-            img: product.img || '',
-            un: product.un || '',
-            id: product.id || '',
-            qnt: product.qnt || 1,
+            productName: product.productName ,
+            productValue: product.productValue ,
+            description: product.description ,
+            img: '',
+            un: product.un,
+            id: product.id ,
+            qnt: 1,
         });
     });
 
     // Transforma o mapa em um array para ser retornado como JSON
     const storesArray = Object.values(storeMap);
+
+    console.log(storesArray);
 
     if (storesArray.length > 0) {
         res.status(200).json(storesArray);
