@@ -408,7 +408,7 @@ app.get('/cart', (req, res) => {
         if (!storeMap[storeName]) {
             storeMap[storeName] = {
                 storeName: storeName,
-                email: product.haveEmail ? product.email : '',
+                email: product.haveEmail ? 'default_email@example.com' : '',
                 phone: product.havePhone ? product.phoneNumber : '',
                 whats: product.haveWhats ? product.phoneNumber : '',
                 haveDelivery: product.haveDelivery,
@@ -418,13 +418,13 @@ app.get('/cart', (req, res) => {
 
         // Adiciona o produto ao vetor de produtos da loja correspondente
         storeMap[storeName].products.push({
-            productName: product.productName,
-            productValue: product.productValue,
-            description: product.description,
-            img: product.img,
-            un: product.un,
-            id: product.id,
-            qnt: product.qnt,
+            productName: product.productName || '',
+            productValue: product.productValue || '',
+            description: product.description || '',
+            img: product.img || '',
+            un: product.un || '',
+            id: product.id || '',
+            qnt: product.qnt || 1,
         });
     });
 
