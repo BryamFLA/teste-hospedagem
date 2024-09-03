@@ -227,6 +227,170 @@ const products = [
     },
 ];
 
+const cart = [
+    {
+      storeName: 'Loja A',
+      email: 'emailA@loja.com',
+      phone: '123456789',
+      whats: '123456789',
+      haveDelivery: true,
+      products: [
+        {
+          storeName: 'Loja A',
+          productName: 'Produto A1',
+          img: 'imgA1.png',
+          description: 'Descrição do Produto A1',
+          productValue: '10.00',
+          un: 'un',
+          haveDelivery: true,
+          id: '1',
+          havePhone: true,
+          haveEmail: true,
+          haveWhats: true,
+          phoneNumber: '123456789',
+          qnt: 1,
+        },
+        {
+          storeName: 'Loja A',
+          productName: 'Produto A2',
+          img: 'imgA2.png',
+          description: 'Descrição do Produto A2',
+          productValue: '20.00',
+          un: 'un',
+          haveDelivery: true,
+          id: '2',
+          havePhone: true,
+          haveEmail: true,
+          haveWhats: true,
+          phoneNumber: '123456789',
+          qnt: 2,
+        },
+      ],
+    },
+    {
+      storeName: 'Loja B',
+      email: 'emailB@loja.com',
+      phone: '987654321',
+      whats: '987654321',
+      haveDelivery: false,
+      products: [
+        {
+            storeName: 'Loja B',
+            productName: 'Produto B1',
+            img: 'imgB1.png',
+            description: 'Descrição do Produto B1',
+            productValue: '30.00',
+            un: 'un',
+            haveDelivery: false,
+            id: '3',
+            havePhone: true,
+            haveEmail: false,
+            haveWhats: true,
+            phoneNumber: '987654321',
+            qnt: 1,
+        },
+        {
+            storeName: 'Loja B',
+            productName: 'Produto B1',
+            img: 'imgB1.png',
+            description: 'Descrição do Produto B1',
+            productValue: '30.00',
+            un: 'un',
+            haveDelivery: false,
+            id: '7',
+            havePhone: true,
+            haveEmail: false,
+            haveWhats: true,
+            phoneNumber: '987654321',
+            qnt: 1,
+          },
+          {
+            storeName: 'Loja B',
+            productName: 'Produto B1',
+            img: 'imgB1.png',
+            description: 'Descrição do Produto B1',
+            productValue: '30.00',
+            un: 'un',
+            haveDelivery: false,
+            id: '8',
+            havePhone: true,
+            haveEmail: false,
+            haveWhats: true,
+            phoneNumber: '987654321',
+            qnt: 1,
+          },
+          {
+            storeName: 'Loja B',
+            productName: 'Produto B1',
+            img: 'imgB1.png',
+            description: 'Descrição do Produto B1',
+            productValue: '30.00',
+            un: 'un',
+            haveDelivery: false,
+            id: '9',
+            havePhone: true,
+            haveEmail: false,
+            haveWhats: true,
+            phoneNumber: '987654321',
+            qnt: 1,
+          },
+      ],
+    },
+    {
+      storeName: 'Loja C',
+      email: 'emailC@loja.com',
+      phone: '456789123',
+      whats: '456789123',
+      haveDelivery: true,
+      products: [
+        {
+          storeName: 'Loja C',
+          productName: 'Produto C1',
+          img: 'imgC1.png',
+          description: 'Descrição do Produto C1',
+          productValue: '40.00',
+          un: 'un',
+          haveDelivery: true,
+          id: '4',
+          havePhone: false,
+          haveEmail: true,
+          haveWhats: false,
+          phoneNumber: '456789123',
+          qnt: 3,
+        },
+        {
+            storeName: 'Loja C',
+            productName: 'Produto C1',
+            img: 'imgC1.png',
+            description: 'Descrição do Produto C1',
+            productValue: '40.00',
+            un: 'un',
+            haveDelivery: true,
+            id: '5',
+            havePhone: false,
+            haveEmail: true,
+            haveWhats: false,
+            phoneNumber: '456789123',
+            qnt: 3,
+          },
+          {
+            storeName: 'Loja C',
+            productName: 'Produto C1',
+            img: 'imgC1.png',
+            description: 'Descrição do Produto C1',
+            productValue: '40.00',
+            un: 'un',
+            haveDelivery: true,
+            id: '6',
+            havePhone: false,
+            haveEmail: true,
+            haveWhats: false,
+            phoneNumber: '456789123',
+            qnt: 3,
+          },
+      ],
+    },
+  ];
 
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
@@ -397,47 +561,11 @@ app.delete('/products', (req, res) => {
 });
 
 app.get('/cart', (req, res) => {
-    // Objeto para armazenar as lojas e seus produtos
-    const storeMap = {};
+    const text = req.query;
+    console.log(text);
 
-    // Passa por todos os produtos no vetor
-    products.forEach(product => {
-        const storeName = product.storeName;
+    res.status(200).json(cart);
 
-        // Se a loja ainda não foi adicionada ao mapa, cria uma nova entrada
-        if (!storeMap[storeName]) {
-            storeMap[storeName] = {
-                storeName: storeName,
-                email: 'default_email@example.com',
-                phone: product.phoneNumber,
-                whats: product.phoneNumber,
-                haveDelivery: product.haveDelivery,
-                products: [],
-            };
-        }
-
-        // Adiciona o produto ao vetor de produtos da loja correspondente
-        storeMap[storeName].products.push({
-            productName: product.productName ,
-            productValue: product.productValue ,
-            description: product.description ,
-            img: '',
-            un: product.un,
-            id: product.id ,
-            qnt: 1,
-        });
-    });
-
-    // Transforma o mapa em um array para ser retornado como JSON
-    const storesArray = Object.values(storeMap);
-
-    console.log(storesArray);
-
-    if (storesArray.length > 0) {
-        res.status(200).json(storesArray);
-    } else {
-        res.status(404).json({ message: 'No stores found' });
-    }
 });
 
 app.put('/cart', (req, res) => {
