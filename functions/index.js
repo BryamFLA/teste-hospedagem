@@ -392,6 +392,10 @@ const cart = [
   },
 ];
 
+app.get("teste", async (req, res) =>{
+  res.status(200).json({resposta: "Funcionou PORRAAA"});
+});
+
 app.post("/login", async (req, res) => {
   const {email, password} = req.body;
 
