@@ -1,0 +1,28 @@
+name: Firebase Deploy
+
+on:
+  push:
+    branches:
+      - main  # A branch que irá disparar o deploy (pode ajustar para outra branch se necessário)
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out the repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js environment
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'  # Ou a versão do Node.js que você está usando
+
+    - name: Install dependencies
+      run: npm install
+      working-directory: ./functions  # Diretório onde o backend está (ajuste se necessário)
+
+    - name: Deploy to Firebase Hosting and Functions
+      run: firebase deploy --only hosting,functions
+      env:
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
