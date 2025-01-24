@@ -8,11 +8,10 @@ import { UsuariosModule } from './usuarios/usuarios.module';
   imports: [
     SequelizeModule.forRoot({
       dialect: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres', // Usuário do PostgreSQL
-      password: 'lpscxt23', // Senha configurada no banco local
-      database: 'teste_hospedagem', // Nome do banco criado localmente
+      host: '`/cloudsql/kdbackend-8f04e:southamerica-east1:teste-hospedagem`',
+      username: process.env.DB_USERNAME, // Variáveis de ambiente
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
       autoLoadModels: true,
       synchronize: true, // Sincroniza os modelos com o banco (ideal para desenvolvimento)
       logging: console.log, // Habilita logs SQL
