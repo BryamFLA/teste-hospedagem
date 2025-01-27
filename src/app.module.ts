@@ -8,7 +8,7 @@ import { UsuariosModule } from './usuarios/usuarios.module';
   imports: [
     SequelizeModule.forRoot({
       dialect: 'postgres',
-      host: 'kdbackend-8f04e:southamerica-east1:teste-hospedagem',
+      host: '/cloudsql/kdbackend-8f04e:southamerica-east1:teste-hospedagem',
       username: 'postgres', // Variáveis de ambiente
       password: 'lpscxt23',
       database: 'banco-teste-hospedagem',
